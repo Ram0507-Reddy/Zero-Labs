@@ -35,12 +35,6 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Zero Labs | Systems Engineering',
-    description: 'We build brutalist, hyper-optimized software infrastructure.',
-    images: ['/og-image.png'],
-  },
 };
 
 export default function RootLayout({
