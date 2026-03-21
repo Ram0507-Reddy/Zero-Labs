@@ -21,7 +21,7 @@ export function Footer() {
           </div>
           
           <p className="text-sm text-neutral-500 max-w-xs font-medium">
-            Engineering fault-tolerant systems for a post-trust world. Absolute data sovereignty.
+            Privacy at the core.
           </p>
         </div>
         <div className="flex gap-16 text-sm text-neutral-500 font-medium">
