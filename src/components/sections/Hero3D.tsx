@@ -89,8 +89,8 @@ export function Hero3D() {
             </motion.h1>
 
             <motion.p variants={itemVars} className="mt-8 text-neutral-400 max-w-lg text-base md:text-lg leading-relaxed font-medium">
-              Designed to align with high-security and regulated environments.
-              Built with privacy-first, <span className="text-white">offline-capable</span> principles for absolute reliability.
+              Privacy-first by design, delivering secure, reliable systems for high-trust and regulated environments.
+              A <span className="text-white">sophisticated</span> environment where we build systems from scratch.
             </motion.p>
 
             <motion.div variants={itemVars} className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-5">
