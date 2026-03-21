@@ -18,9 +18,9 @@ export default function BuildRequestPage() {
     const rawData = {
       name: (formData.get('name') as string) || '',
       email: (formData.get('email') as string) || '',
-      budget: (formData.get('budget') as string) || '',
-      timeline: (formData.get('timeline') as string) || '',
+      problems: (formData.get('problems') as string) || '',
       projectDetails: (formData.get('description') as string) || '',
+      website: (formData.get('website') as string) || '',
     };
 
     const res = await transmitAction(rawData);
@@ -67,7 +67,7 @@ export default function BuildRequestPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-2 group">
               <label htmlFor="name" className="block text-xs uppercase tracking-widest text-neutral-500 group-focus-within:text-white transition-colors">
-                Designation (Name)
+                Name
               </label>
               <input 
                 type="text" 
@@ -81,7 +81,7 @@ export default function BuildRequestPage() {
 
             <div className="space-y-2 group">
               <label htmlFor="email" className="block text-xs uppercase tracking-widest text-neutral-500 group-focus-within:text-white transition-colors">
-                Communication Vector (Email)
+                Email
               </label>
               <input 
                 type="email" 
@@ -96,7 +96,7 @@ export default function BuildRequestPage() {
 
           <div className="space-y-2 group">
             <label htmlFor="description" className="block text-xs uppercase tracking-widest text-neutral-500 group-focus-within:text-white transition-colors">
-              System Parameters (Project Details)
+              Project Details
             </label>
             <textarea 
               id="description" 
@@ -108,32 +108,31 @@ export default function BuildRequestPage() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-2 group">
-              <label htmlFor="budget" className="block text-xs uppercase tracking-widest text-neutral-500 group-focus-within:text-white transition-colors">
-                Allocated Resources (Budget)
-              </label>
-              <input 
-                type="text" 
-                id="budget" 
-                name="budget" 
-                className="w-full bg-transparent border-b border-neutral-800 py-3 text-white focus:outline-none focus:border-white transition-colors"
-                placeholder="e.g. $50k+"
-              />
-            </div>
+          <div className="space-y-2 group">
+            <label htmlFor="problems" className="block text-xs uppercase tracking-widest text-neutral-500 group-focus-within:text-white transition-colors">
+              Problems Facing
+            </label>
+            <textarea 
+              id="problems" 
+              name="problems" 
+              required
+              rows={3}
+              className="w-full bg-transparent border-b border-neutral-800 py-3 text-white focus:outline-none focus:border-white transition-colors resize-none"
+              placeholder="What specific challenges are you looking to solve?"
+            />
+          </div>
 
-            <div className="space-y-2 group">
-              <label htmlFor="timeline" className="block text-xs uppercase tracking-widest text-neutral-500 group-focus-within:text-white transition-colors">
-                Deployment Target (Timeline)
-              </label>
-              <input 
-                type="text" 
-                id="timeline" 
-                name="timeline" 
-                className="w-full bg-transparent border-b border-neutral-800 py-3 text-white focus:outline-none focus:border-white transition-colors"
-                placeholder="e.g. Q3 2024"
-              />
-            </div>
+          <div className="space-y-2 group">
+            <label htmlFor="website" className="block text-xs uppercase tracking-widest text-neutral-500 group-focus-within:text-white transition-colors">
+              Existing Website (if any)
+            </label>
+            <input 
+              type="text" 
+              id="website" 
+              name="website" 
+              className="w-full bg-transparent border-b border-neutral-800 py-3 text-white focus:outline-none focus:border-white transition-colors"
+              placeholder="https://your-current-site.com"
+            />
           </div>
 
           <motion.div variants={itemVars} className="pt-8">

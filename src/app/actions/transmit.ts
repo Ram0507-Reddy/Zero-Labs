@@ -7,7 +7,7 @@ import { headers } from 'next/headers';
 // natively blocking massive concurrent bot attacks instantly without needing an external database.
 const rateLimitMap = new Map<string, number>();
 
-export async function transmitAction(data: { name: string, email: string, budget: string, timeline: string, projectDetails: string }) {
+export async function transmitAction(data: { name: string, email: string, problems: string, projectDetails: string, website: string }) {
   try {
     const headersList = await headers();
     const ip = headersList.get('x-forwarded-for') || '127.0.0.1';
@@ -32,9 +32,9 @@ export async function transmitAction(data: { name: string, email: string, budget
       fields: {
         name: { stringValue: data.name },
         email: { stringValue: data.email },
-        budget: { stringValue: data.budget },
-        timeline: { stringValue: data.timeline },
+        problems: { stringValue: data.problems },
         projectDetails: { stringValue: data.projectDetails },
+        website: { stringValue: data.website },
         status: { stringValue: 'UNREAD' },
         createdAt: { stringValue: new Date().toISOString() }
       }

@@ -8,9 +8,9 @@ interface AdminRequest {
   id: string;
   name: string;
   email: string;
-  budget: string;
-  timeline: string;
+  problems: string;
   desc: string;
+  website: string;
   status: string;
   date: string;
 }
@@ -35,9 +35,9 @@ export default function AdminDashboard() {
               id: doc.id,
               name: d.name,
               email: d.email,
-              budget: d.budget,
-              timeline: d.timeline,
-              desc: d.description,
+              problems: d.problems,
+              desc: d.projectDetails, 
+              website: d.website,
               status: d.status || 'UNREAD',
               date: d.createdAt ? new Date(d.createdAt).toLocaleString() : 'Just now'
             };
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
                 <tr className="border-b border-white/5 bg-white/[0.02]">
                   <th className="px-8 py-5 text-xs font-mono text-neutral-500 uppercase tracking-widest w-32">Status</th>
                   <th className="px-8 py-5 text-xs font-mono text-neutral-500 uppercase tracking-widest min-w-[200px]">Designation</th>
-                  <th className="px-8 py-5 text-xs font-mono text-neutral-500 uppercase tracking-widest hidden md:table-cell">Timeline / Budget</th>
+                  <th className="px-8 py-5 text-xs font-mono text-neutral-500 uppercase tracking-widest hidden md:table-cell">Problems & Website</th>
                   <th className="px-8 py-5 text-xs font-mono text-neutral-500 uppercase tracking-widest w-full">Parameters</th>
                 </tr>
               </thead>
@@ -165,8 +165,8 @@ export default function AdminDashboard() {
                     </td>
                     <td className="px-8 py-6 align-top hidden md:table-cell">
                       <div className="flex flex-col">
-                        <span className="text-sm text-neutral-300">{req.timeline}</span>
-                        <span className="text-xs text-neutral-600 font-mono mt-1">{req.budget}</span>
+                        <span className="text-sm text-neutral-300 line-clamp-1">{req.problems}</span>
+                        <span className="text-xs text-neutral-600 font-mono mt-1 break-all">{req.website || '[NO SITE]'}</span>
                       </div>
                     </td>
                     <td className="px-8 py-6 align-top">
