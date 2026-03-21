@@ -10,9 +10,9 @@ interface AdminRequest {
   email: string;
   budget: string;
   timeline: string;
-  projectDetails: string;
+  desc: string;
   status: string;
-  createdAt: any;
+  date: string;
 }
 
 export default function AdminDashboard() {
