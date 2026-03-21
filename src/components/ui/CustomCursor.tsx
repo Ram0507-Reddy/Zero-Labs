@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 
 export function CustomCursor() {
   const [cursorType, setCursorType] = useState<"default" | "pointer" | "text">("default");
@@ -10,16 +10,14 @@ export function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const springConfig = { damping: 30, stiffness: 500, mass: 0.5 };
+  const springConfig = { damping: 35, stiffness: 600, mass: 0.5 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // Check if non-touch on mount
-    const isMouse = !window.matchMedia("(pointer: coarse)").matches;
-    if (isMouse) {
-      requestAnimationFrame(() => setIsVisible(true));
-    }
+    // Only show custom cursor on non-touch devices
+    if (typeof window === "undefined" || window.matchMedia("(pointer: coarse)").matches) return;
+    setIsVisible(true);
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -28,7 +26,6 @@ export function CustomCursor() {
       const target = e.target as HTMLElement;
       if (!target) return;
 
-      // Check if target or any parent is interactable
       const isPointer = 
         window.getComputedStyle(target).cursor === "pointer" ||
         target.tagName === "A" ||
@@ -68,33 +65,88 @@ export function CustomCursor() {
           y: cursorY,
         }}
       >
-        <motion.div
-          animate={{
-            width: cursorType === "pointer" ? 40 : cursorType === "text" ? 2 : 10,
-            height: cursorType === "pointer" ? 40 : cursorType === "text" ? 24 : 10,
-            borderRadius: cursorType === "text" ? "2px" : "50%",
-            x: cursorType === "pointer" ? -20 : cursorType === "text" ? -1 : -5,
-            y: cursorType === "pointer" ? -20 : cursorType === "text" ? -12 : -5,
-            backgroundColor: cursorType === "text" ? "#ef4444" : "white",
-            border: cursorType === "pointer" ? "2px solid #ef4444" : "none",
-            mixBlendMode: cursorType === "pointer" ? "normal" : "difference",
-          }}
-          transition={{ 
-            type: "spring", 
-            stiffness: 400, 
-            damping: 35,
-            mass: 0.1
-          }}
-          className="relative flex items-center justify-center transition-colors duration-200"
-        >
-          {cursorType === "pointer" && (
-             <motion.div 
-               initial={{ scale: 0 }}
-               animate={{ scale: 1 }}
-               className="w-1.5 h-1.5 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444]" 
+        <AnimatePresence mode="wait">
+          {cursorType === "text" ? (
+             <motion.div
+               key="text-cursor"
+               initial={{ opacity: 0, scaleY: 0 }}
+               animate={{ opacity: 1, scaleY: 1 }}
+               exit={{ opacity: 0, scaleY: 0 }}
+               className="w-[2px] h-6 bg-[#ef4444] rounded-full -translate-x-1/2 -translate-y-1/2 shadow-[0_0_8px_#ef4444]"
              />
+          ) : (
+            <motion.div
+              key="poly-cursor"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ 
+                opacity: 1, 
+                scale: cursorType === "pointer" ? 1.4 : 1,
+                rotate: cursorType === "pointer" ? 15 : 0
+              }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="relative -translate-x-[2px] -translate-y-[2px]"
+            >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Base polygon */}
+                <motion.path 
+                  animate={{
+                    fill: cursorType === "pointer" ? "rgba(239, 68, 68, 0.4)" : "rgba(115, 115, 115, 0.9)",
+                    stroke: cursorType === "pointer" ? "#ef4444" : "#E5E5E5",
+                  }}
+                  d="M1 1 L19 8 L11 11 L8 19 Z" 
+                  strokeWidth="1.2" 
+                  strokeLinejoin="round"
+                />
+                
+                {/* Internal mesh lines */}
+                <motion.path 
+                  animate={{ stroke: cursorType === "pointer" ? "#ef4444" : "#E5E5E5" }}
+                  d="M1 1 L11 11" strokeWidth="0.8" opacity="0.6" 
+                />
+                <motion.path 
+                  animate={{ stroke: cursorType === "pointer" ? "#ef4444" : "#E5E5E5" }}
+                  d="M19 8 L8 19" strokeWidth="0.8" opacity="0.6" 
+                />
+                <motion.path 
+                  animate={{ stroke: cursorType === "pointer" ? "#fecaca" : "#E5E5E5" }}
+                  d="M1 1 L8 19" strokeWidth="0.4" opacity="0.3" 
+                />
+                <motion.path 
+                  animate={{ stroke: cursorType === "pointer" ? "#fecaca" : "#E5E5E5" }}
+                  d="M1 1 L19 8" strokeWidth="0.4" opacity="0.3" 
+                />
+                
+                {/* Outer nodes */}
+                <motion.circle 
+                  animate={{ fill: cursorType === "pointer" ? "#ef4444" : "#FFFFFF" }}
+                  cx="1" cy="1" r="1.5" 
+                />
+                <motion.circle 
+                  animate={{ fill: cursorType === "pointer" ? "#ef4444" : "#FFFFFF" }}
+                  cx="19" cy="8" r="1.5" 
+                />
+                <motion.circle 
+                  animate={{ fill: cursorType === "pointer" ? "#ef4444" : "#FFFFFF" }}
+                  cx="8" cy="19" r="1.5" 
+                />
+                
+                {/* Inner nodes */}
+                <motion.circle 
+                  animate={{ fill: cursorType === "pointer" ? "#ff0000" : "#FFFFFF" }}
+                  cx="11" cy="11" r="1.2" 
+                />
+                {cursorType === "pointer" && (
+                  <motion.circle 
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1.5, opacity: [0.5, 1, 0.5] }}
+                    transition={{ repeat: Infinity, duration: 1 }}
+                    cx="11" cy="11" r="3" stroke="#ef4444" strokeWidth="0.5"
+                  />
+                )}
+              </svg>
+            </motion.div>
           )}
-        </motion.div>
+        </AnimatePresence>
       </motion.div>
     </>
   );
