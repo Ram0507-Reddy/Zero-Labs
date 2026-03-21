@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { ZeroLabsLogo } from '@/components/ui/ZeroLabsLogo';
 
 export function Hero3D() {
-  const brandingVars = {
+  const brandingVars: Variants = {
     hidden: { opacity: 0, scale: 0.8, filter: 'blur(20px)' },
     show: {
       opacity: 1,
@@ -18,7 +18,7 @@ export function Hero3D() {
     }
   };
 
-  const textVars = {
+  const textVars: Variants = {
     hidden: { opacity: 0, y: 30 },
     show: {
       opacity: 1,
@@ -31,7 +31,7 @@ export function Hero3D() {
     }
   };
 
-  const itemVars = {
+  const itemVars: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
