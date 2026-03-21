@@ -39,9 +39,6 @@ export const metadata: Metadata = {
     description: 'We build brutalist, hyper-optimized software infrastructure.',
     images: ['/og-image.png'],
   },
-  icons: {
-    icon: '/icon.png',
-  },
 };
 
 export default function RootLayout({

@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/global/Container";
 
-import { PasswordGate } from "@/components/admin/PasswordGate";
-
 export default function AdminDashboard() {
   const [requests, setRequests] = useState<any[]>([]);
 
@@ -61,8 +59,7 @@ export default function AdminDashboard() {
   const unreadCount = requests.filter(r => r.status === 'UNREAD').length;
 
   return (
-    <PasswordGate>
-      <div className="min-h-screen bg-black text-white pt-24 pb-32">
+    <div className="min-h-screen bg-black text-white pt-24 pb-32">
       <Container className="max-w-[1200px]">
         {/* Header section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -174,6 +171,5 @@ export default function AdminDashboard() {
         </motion.div>
       </Container>
     </div>
-    </PasswordGate>
   );
 }
