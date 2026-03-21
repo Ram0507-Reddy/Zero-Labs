@@ -8,7 +8,7 @@ export function ReloadBoundary() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Determine navigation type
+    // Determine navigation type ONLY on initial mount/hard load
     const navEntries = performance.getEntriesByType('navigation') as PerformanceNavigationTiming[];
     const navType = navEntries[0]?.type;
 
@@ -21,7 +21,7 @@ export function ReloadBoundary() {
         router.replace("/");
       }
     }
-  }, [pathname, router]);
+  }, []); // Only run once on full page load/mount
 
   return null;
 }
