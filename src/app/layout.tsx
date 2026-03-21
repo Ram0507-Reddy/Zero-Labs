@@ -6,7 +6,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Preloader } from '@/components/ui/Preloader';
 import { Navbar } from '@/components/global/Navbar';
 import { Footer } from '@/components/global/Footer';
-import { CustomCursor } from '@/components/ui/CustomCursor';
 import { ReloadBoundary } from '@/components/global/ReloadBoundary';
 import "./globals.css";
 
@@ -48,7 +47,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${inter.variable} antialiased bg-black text-white overflow-x-hidden`}>
         <ReloadBoundary />
-        <CustomCursor />
         <Preloader />
         <Navbar />
         {children}
