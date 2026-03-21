@@ -4,8 +4,20 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/global/Container";
 
+interface AdminRequest {
+  id: string;
+  name: string;
+  email: string;
+  budget: string;
+  timeline: string;
+  projectDetails: string;
+  status: string;
+  createdAt: any;
+}
+
 export default function AdminDashboard() {
-  const [requests, setRequests] = useState<any[]>([]);
+  const [requests, setRequests] = useState<AdminRequest[]>([]);
+
 
   useEffect(() => {
     let unsubscribe: () => void;
@@ -130,6 +142,8 @@ export default function AdminDashboard() {
                       <select 
                         value={req.status}
                         onChange={(e) => updateStatus(req.id, e.target.value)}
+                        title="Change transmission status"
+                        aria-label="Change transmission status"
                         className={`inline-flex items-center px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase border appearance-none outline-none cursor-pointer transition-colors
                           ${req.status === 'UNREAD' ? 'bg-white text-black border-white' : 
                             req.status === 'REVIEWING' ? 'bg-neutral-800 text-white border-neutral-700' : 

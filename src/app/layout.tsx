@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Inter } from "next/font/google";
 import { Toaster } from 'sonner';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Preloader } from '@/components/ui/Preloader';
 import { Navbar } from '@/components/global/Navbar';
 import { Footer } from '@/components/global/Footer';
@@ -12,7 +14,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   title: 'Zero Labs | Systems Engineering',
   description: 'We build brutalist, hyper-optimized software infrastructure for sovereign individuals and elite development teams. Not every problem needs a solution, but if yours does — we build it.',
-  metadataBase: new URL('https://zerolabs.live'),
+  metadataBase: new URL('https://zero-s.tech'),
   robots: {
     index: true,
     follow: true,
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Zero Labs | Systems Engineering',
     description: 'We build brutalist, hyper-optimized software infrastructure.',
-    url: 'https://zerolabs.live',
+    url: 'https://zero-s.tech',
     siteName: 'Zero Labs',
     images: [
       {
@@ -54,6 +56,8 @@ export default function RootLayout({
         {children}
         <Footer />
         <Toaster theme="dark" position="bottom-right" />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
